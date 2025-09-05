@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF查看器</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .tabs {
+            display: flex;
+            background: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            border: none;
+            background: #666;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 2px;
+            transition: all 0.3s ease;
+        }
+        .tab:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+        .tab.active {
+            background: #007acc;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,122,204,0.3);
+        }
+        .pdf-container {
+            width: 100%;
+            height: calc(100vh - 50px);
+            border: none;
+            display: none;
+        }
+        .pdf-container.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabs">
+        <button class="tab active" onclick="showPDF(0)">宣传册</button>
+        <button class="tab" onclick="showPDF(1)">案例册</button>
+    </div>
+    
+    <embed id="pdf1" src="0904宣传册 妙课产品.pdf" type="application/pdf" class="pdf-container active">
+    <embed id="pdf2" src="0904案例册 妙课产品案例.pdf" type="application/pdf" class="pdf-container">
+
+    <script>
+        function showPDF(index) {
+            // 隐藏所有PDF
+            const pdfs = document.querySelectorAll('.pdf-container');
+            const tabs = document.querySelectorAll('.tab');
+            
+            pdfs.forEach(pdf => pdf.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // 显示选中的PDF和标签
+            pdfs[index].classList.add('active');
+            tabs[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>
