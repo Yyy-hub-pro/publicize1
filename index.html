@@ -52,8 +52,21 @@
         <button class="tab" onclick="showPDF(1)">案例册</button>
     </div>
     
-    <embed id="pdf1" src="0904宣传册 妙课产品.pdf" type="application/pdf" class="pdf-container active">
-    <embed id="pdf2" src="0904案例册 妙课产品案例.pdf" type="application/pdf" class="pdf-container">
+    <div id="pdf1" class="pdf-container active">
+        <object data="0904宣传册 妙课产品.pdf" type="application/pdf" width="100%" height="100%">
+            <iframe src="0904宣传册 妙课产品.pdf" width="100%" height="100%">
+                <p>您的浏览器不支持PDF预览。<a href="0904宣传册 妙课产品.pdf" target="_blank">点击此处下载PDF</a></p>
+            </iframe>
+        </object>
+    </div>
+    
+    <div id="pdf2" class="pdf-container">
+        <object data="0904案例册 妙课产品案例.pdf" type="application/pdf" width="100%" height="100%">
+            <iframe src="0904案例册 妙课产品案例.pdf" width="100%" height="100%">
+                <p>您的浏览器不支持PDF预览。<a href="0904案例册 妙课产品案例.pdf" target="_blank">点击此处下载PDF</a></p>
+            </iframe>
+        </object>
+    </div>
 
     <script>
         function showPDF(index) {
@@ -67,6 +80,33 @@
             // 显示选中的PDF和标签
             pdfs[index].classList.add('active');
             tabs[index].classList.add('active');
+        }
+
+        // 检测移动设备
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // 如果是移动设备，提供下载链接
+        if (isMobile()) {
+            document.addEventListener('DOMContentLoaded', function() {
+                const containers = document.querySelectorAll('.pdf-container');
+                containers.forEach((container, index) => {
+                    const pdfFiles = ['0904宣传册 妙课产品.pdf', '0904案例册 妙课产品案例.pdf'];
+                    const pdfNames = ['宣传册', '案例册'];
+                    
+                    container.innerHTML = `
+                        <div style="padding: 40px; text-align: center; font-size: 18px;">
+                            <p>移动设备上请点击下方链接查看PDF：</p>
+                            <a href="${pdfFiles[index]}" target="_blank" 
+                               style="display: inline-block; padding: 15px 30px; background: #007acc; color: white; 
+                                      text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px;">
+                                查看${pdfNames[index]}
+                            </a>
+                        </div>
+                    `;
+                });
+            });
         }
     </script>
 </body>
